@@ -1,10 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Loader2, Mail, Lock, User, Sparkles } from 'lucide-react'
+import { Loader2, Mail, Lock, Sparkles } from 'lucide-react'
 
 export default function SignupPage() {
   const [email, setEmail] = useState('')
@@ -13,12 +12,15 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const router = useRouter()
-  const supabase = createClient()
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
+
+    // Dynamic import so createBrowserClient only runs in the browser
+    const { createClient } = await import('@/lib/supabase/client')
+    const supabase = createClient()
 
     const { error, data } = await supabase.auth.signUp({
       email,
@@ -32,7 +34,6 @@ export default function SignupPage() {
       setError(error.message)
       setLoading(false)
     } else if (data.session) {
-      // Auto-confirmed (e.g., email confirmation disabled in Supabase)
       router.push('/dashboard')
       router.refresh()
     } else {

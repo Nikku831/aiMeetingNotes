@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useRef } from 'react'
 import { generateNotes } from './actions'
-import { Sparkles, Loader2, AlertCircle, CheckCircle2, ChevronUp, ChevronDown, Zap } from 'lucide-react'
+import { Sparkles, Loader2, AlertCircle, CheckCircle2, Zap } from 'lucide-react'
 import type { GenerateResult, ActionItem } from '@/types'
 import Link from 'next/link'
 

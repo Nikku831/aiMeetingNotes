@@ -2,26 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-inter: 'Inter', sans-serif;
+    --font-outfit: 'Outfit', sans-serif;
+  }
+
+  * {
+    @apply border-slate-800;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Glass card */
+  .glass-card {
+    @apply bg-white/[0.03] backdrop-blur-md;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-gradient-to-r from-violet-600 to-indigo-600
+           hover:from-violet-500 hover:to-indigo-500
+           active:from-violet-700 active:to-indigo-700
+           text-white font-semibold text-sm
+           px-4 py-2.5 rounded-xl
+           transition-all duration-200
+           shadow-lg shadow-violet-500/20
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-white/5 hover:bg-white/10
+           border border-white/10 hover:border-white/20
+           text-slate-300 hover:text-white
+           font-semibold text-sm
+           px-4 py-2.5 rounded-xl
+           transition-all duration-200
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  /* Input field */
+  .input-field {
+    @apply bg-slate-900/70 border border-white/10
+           hover:border-white/20 focus:border-violet-500/60
+           text-slate-100 placeholder:text-slate-600
+           rounded-xl px-3.5 py-2.5 text-sm
+           transition-all duration-200
+           outline-none
+           focus:ring-2 focus:ring-violet-500/20;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  /* Shimmer */
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.05) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
   }
 }

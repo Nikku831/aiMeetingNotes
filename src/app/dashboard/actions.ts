@@ -26,10 +26,10 @@ export async function generateNotes(transcript: string): Promise<{ data?: Genera
     .single()
 
   const plan = profile?.plan ?? 'free'
+  const today = new Date().toISOString().split('T')[0]
 
   // 3. Usage gate for free users
   if (plan === 'free') {
-    const today = new Date().toISOString().split('T')[0]
     const { data: usage } = await supabase
       .from('usage_counters')
       .select('count')
@@ -106,30 +106,31 @@ Rules:
     return { error: 'Failed to save notes. Please try again.' }
   }
 
-  // 6. Increment usage counter (upsert)
-  const today = new Date().toISOString().split('T')[0]
-  await supabase.rpc('increment_usage', { p_user_id: user.id, p_date: today })
-    .catch(async () => {
-      // Fallback if RPC not set up: manual upsert
-      const { data: existing } = await supabase
+  // 6. Increment usage counter (upsert via RPC)
+  try {
+    const { error: rpcError } = await supabase.rpc('increment_usage', { p_user_id: user.id, p_date: today })
+    if (rpcError) throw rpcError
+  } catch {
+    // Fallback: manual upsert if RPC not available
+    const { data: existing } = await supabase
+      .from('usage_counters')
+      .select('count')
+      .eq('user_id', user.id)
+      .eq('usage_date', today)
+      .single()
+
+    if (existing) {
+      await supabase
         .from('usage_counters')
-        .select('count')
+        .update({ count: existing.count + 1 })
         .eq('user_id', user.id)
         .eq('usage_date', today)
-        .single()
-
-      if (existing) {
-        await supabase
-          .from('usage_counters')
-          .update({ count: existing.count + 1 })
-          .eq('user_id', user.id)
-          .eq('usage_date', today)
-      } else {
-        await supabase
-          .from('usage_counters')
-          .insert({ user_id: user.id, usage_date: today, count: 1 })
-      }
-    })
+    } else {
+      await supabase
+        .from('usage_counters')
+        .insert({ user_id: user.id, usage_date: today, count: 1 })
+    }
+  }
 
   revalidatePath('/dashboard')
 

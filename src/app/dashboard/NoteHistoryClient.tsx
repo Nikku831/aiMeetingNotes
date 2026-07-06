@@ -25,7 +25,7 @@ function NoteCard({ note }: { note: MeetingNote }) {
 
   const handleDelete = () => {
     if (!confirm('Delete this meeting note?')) return
-    startTransition(() => deleteNote(note.id))
+    startTransition(() => { void deleteNote(note.id) })
   }
 
   return (

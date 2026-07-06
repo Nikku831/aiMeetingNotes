@@ -6,6 +6,8 @@ import NoteGeneratorClient from './NoteGeneratorClient'
 import NoteHistoryClient from './NoteHistoryClient'
 import type { MeetingNote, Profile } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 const FREE_DAILY_LIMIT = 3
 
 export default async function DashboardPage() {

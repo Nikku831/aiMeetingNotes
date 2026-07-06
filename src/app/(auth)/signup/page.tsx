@@ -33,6 +33,9 @@ export default function SignupPage() {
     if (error) {
       setError(error.message)
       setLoading(false)
+    } else if (data.user && data.user.identities && data.user.identities.length === 0) {
+      // User already exists, email enumeration protection returns empty identities
+      router.push('/login')
     } else if (data.session) {
       router.push('/dashboard')
       router.refresh()

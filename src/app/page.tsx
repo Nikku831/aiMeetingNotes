@@ -41,46 +41,9 @@ const features = [
       'Every set of notes is saved to your personal history. Revisit, review, and share any past meeting at any time.',
     color: 'sky',
   },
-  {
-    icon: Shield,
-    title: 'Private by Default',
-    description:
-      'Your transcripts never train AI models. Row-level security ensures only you can see your data — ever.',
-    color: 'emerald',
-  },
-  {
-    icon: Zap,
-    title: 'Blazing Fast',
-    description:
-      'Results in under 5 seconds. No waiting, no spinning, no frustration — just instant clarity from every meeting.',
-    color: 'amber',
-  },
-  {
-    icon: Users,
-    title: 'Built for Teams',
-    description:
-      'Works with Zoom, Google Meet, Teams, and any transcript format. If you can paste it, we can summarize it.',
-    color: 'pink',
-  },
 ]
 
-const testimonials = [
-  {
-    quote: 'I used to spend 20 minutes writing meeting summaries. Now it takes 10 seconds.',
-    author: 'Sarah K.',
-    role: 'Product Manager',
-  },
-  {
-    quote: 'The action items are scarily accurate. It catches things I would have missed.',
-    author: 'Marcus T.',
-    role: 'Engineering Lead',
-  },
-  {
-    quote: 'Finally a tool that respects my privacy and actually works. Worth every penny.',
-    author: 'Priya N.',
-    role: 'Startup Founder',
-  },
-]
+
 
 const colorMap: Record<string, string> = {
   violet: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
@@ -249,27 +212,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ─── Testimonials ─── */}
-      <section className="relative z-10 py-16 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid sm:grid-cols-3 gap-4">
-            {testimonials.map((t) => (
-              <div key={t.author} className="glass-card rounded-2xl p-6 border border-white/5">
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">&quot;{t.quote}&quot;</p>
-                <div>
-                  <p className="text-white text-sm font-medium">{t.author}</p>
-                  <p className="text-slate-500 text-xs">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ─── Pricing ─── */}
       <section id="pricing" className="relative z-10 py-24 px-4 sm:px-6">

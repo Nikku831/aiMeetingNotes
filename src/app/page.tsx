@@ -5,10 +5,7 @@ import {
   CheckCircle2,
   Zap,
   History,
-  Shield,
   ArrowRight,
-  Star,
-  Users,
   Crown,
   Check,
 } from 'lucide-react'

@@ -5,8 +5,9 @@ Welcome to **AI Meeting Notes**! This application helps you instantly turn messy
 If you spend too much time reading over transcripts from Zoom, Teams, or Google Meet, this tool will do the heavy lifting for you in seconds.
 
 ### 🚀 Live Demo
-**Try the deployed app here:** [Click Here]([https://your-vercel-deployment-url.vercel.app](https://ai-meeting-notes-theta.vercel.app/)) 
+**Try the deployed app here:** [Click Here](https://ai-meeting-notes-theta.vercel.app/) 
 
+**To view the demo video:** [Click Here](https://youtu.be/EF0ZkxbET0o)
 ## Features
 
 - **Instant Summaries:** Paste your meeting transcript and get a concise 2-4 sentence summary of what was discussed.
